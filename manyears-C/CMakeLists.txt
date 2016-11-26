@@ -21,12 +21,14 @@ SET(CMAKE_BUILD_TYPE Release)
 #Additional modules
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/macros)
 
-#Here we are assuming SSE3 support
+#Here we are assuming arm support
 IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     MESSAGE( STATUS "Setting flags for GNU GCC")
-    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-Wall")
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wall")
-    SET(MANYEARS_LINK_FLAGS "-O3")
+    #ADD_DEFINITIONS(-DUSE_SIMD)
+    #PARAMETERS TUNED FOR Pi2...
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-O2 -mcpu=cortex-a7  -mfpu=neon-vfpv4")
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-O2 -mcpu=cortex-a7  -mfpu=neon-vfpv4")
+    SET(MANYEARS_LINK_FLAGS "-O2")
 ENDIF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 IF (MSVC)
